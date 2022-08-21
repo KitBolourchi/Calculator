@@ -17,11 +17,12 @@ public class Calculator {
 
         System.out.println("Select '+' (ADD), '*'(MULTIPLY), '-' (SUBTRACT)");
         String operation = scanner.nextLine();
+        System.out.println("================================");
 
         System.out.print(randomNumber1 + " " + operation + " " + randomNumber2 + " = ");
 
         if (operation.equals("+")) {
-            System.out.print(randomNumber1 + randomNumber1);
+            System.out.print(randomNumber1 + randomNumber2);
         } else if (operation.equals("*")) {
             System.out.print(randomNumber1 * randomNumber2);
         } else {
