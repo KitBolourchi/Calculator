@@ -12,18 +12,25 @@ public class Calculator {
         System.out.print("Select your second number: ");
         int number2 = Integer.parseInt(scanner.nextLine());
 
-        System.out.println("Select '+' (ADD), '*'(MULTIPLY), '-' (SUBTRACT)");
-        String operation = scanner.nextLine();
+        Calculation operation = chooseOperation();
         System.out.println("================================");
 
-        System.out.print(number1 + " " + operation + " " + number2 + " = ");
+        int sum = operation.calculate(number1, number2);
+        System.out.println("Sum: " + sum);
+    }
 
-        if (operation.equals("+")) {
-            System.out.print(number1 + number2);
-        } else if (operation.equals("*")) {
-            System.out.print(number1 * number2);
+    private static Calculation chooseOperation() {
+        System.out.println("Select '+' (ADD), '*'(MULTIPLY), '-' (SUBTRACT)");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.next();
+
+        if (input.equals("+")) {
+            return new Addition();
+        } else if (input.equals("*")) {
+            return new Multiply();
         } else {
-            System.out.print(number1 - number2);
+            return new Subtraction();
         }
+
     }
 }
