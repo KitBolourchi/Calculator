@@ -5,7 +5,7 @@ public class Calculator {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome to the calculator!");
-        System.out.println("================================");
+        System.out.println("=================================");
 
         System.out.print("Select your first number: ");
         int number1 = Integer.parseInt(scanner.nextLine());
@@ -13,7 +13,7 @@ public class Calculator {
         int number2 = Integer.parseInt(scanner.nextLine());
 
         Calculation operation = chooseOperation();
-        System.out.println("================================");
+        System.out.println("=================================");
 
         int sum = operation.calculate(number1, number2);
         System.out.println("Sum: " + sum);
