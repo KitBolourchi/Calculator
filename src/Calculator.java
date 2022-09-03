@@ -5,79 +5,53 @@ public class Calculator {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome to the calculator!");
-        System.out.println("==========================");
+        System.out.println("=================================");
 
-        System.out.print("Choose and operation: ");
-        String operation = scanner.nextLine();
+        Calculation calculation = chooseOperation();
+        System.out.println("=================================");
 
-        System.out.print("How many numbers? ");
-        int length = Integer.parseInt(scanner.nextLine());
+        int[] numbers = chooseNumbers();
+        System.out.println("=================================");
 
-        int[] arr = new int[length];
+        int Sum = calculate(calculation, numbers);
 
-        for(int i = 1; i <= arr.length; i++) {
-            System.out.print("Choose number " + i + " : ");
-            int numberChoice = Integer.parseInt(scanner.nextLine());
-            arr[i-1] = numberChoice;
-        }
+        System.out.println("Sum: " + Sum);
+    }
 
-        int sum = arr[0];
+    private static Calculation chooseOperation() {
+        System.out.print("Select '+' (ADD), '*'(MULTIPLY), '-' (SUBTRACT): ");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.next();
 
-        if (operation.equals("+")) {
-            for(int i = 1; i<arr.length; i++){
-                sum += arr[i];
-            }
-            System.out.println("Sum: " + sum);
-        } else if (operation.equals("-")) {
-            for(int i = 1; i<arr.length; i++){
-                sum -= arr[i];
-            }
-            System.out.println("Sum: " + sum);
+        if (input.equals("+")) {
+            return new Addition();
+        } else if (input.equals("*")) {
+            return new Multiply();
         } else {
-            for(int i = 1; i<arr.length; i++){
-                sum *= arr[i];
-            }
-            System.out.println("Sum: " + sum);
+            return new Subtraction();
         }
+
+    }
+
+    private static int[] chooseNumbers() {
+        System.out.print("How many numbers? ");
+        Scanner scanner = new Scanner(System.in);
+        int length = scanner.nextInt();
+
+        int[] numbers = new int[length];
+        for(int i = 0; i<numbers.length; i++) {
+            System.out.print("Choose number " + (i+1) + ": ");
+            int numInput = scanner.nextInt();
+            numbers[i] = numInput;
+        }
+        return numbers;
+    }
+
+    private static int calculate(Calculation calculation, int[] numbers) {
+        int total = numbers[0];
+        for(int i = 1; i<numbers.length; i++) {
+            total = calculation.calculate(total, numbers[i]);
+        }
+        return total;
     }
 }
-
-
-// old code below (although correct), above code is just messing about with different implementations!
-
-//import java.util.Scanner;
-//public class Calculator {
-//
-//    public static void main(String[] args) {
-//        Scanner scanner = new Scanner(System.in);
-//
-//        System.out.println("Welcome to the calculator!");
-//        System.out.println("=================================");
-//
-//        System.out.print("Select your first number: ");
-//        int number1 = Integer.parseInt(scanner.nextLine());
-//        System.out.print("Select your second number: ");
-//        int number2 = Integer.parseInt(scanner.nextLine());
-//
-//        Calculation operation = chooseOperation();
-//        System.out.println("=================================");
-//
-//        int sum = operation.calculate(number1, number2);
-//        System.out.println("Sum: " + sum);
-//    }
-//
-//    private static Calculation chooseOperation() {
-//        System.out.println("Select '+' (ADD), '*'(MULTIPLY), '-' (SUBTRACT)");
-//        Scanner scanner = new Scanner(System.in);
-//        String input = scanner.next();
-//
-//        if (input.equals("+")) {
-//            return new Addition();
-//        } else if (input.equals("*")) {
-//            return new Multiply();
-//        } else {
-//            return new Subtraction();
-//        }
-//
-//    }
-//}
