@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Calculator {
 
     public static void main(String[] args) {
@@ -7,13 +8,13 @@ public class Calculator {
         System.out.println("Welcome to the calculator!");
         System.out.println("=================================");
 
-        Calculation calculation = chooseOperation();
+        Calculation operation = chooseOperation();
         System.out.println("=================================");
 
-        int[] numbers = chooseNumbers();
+        ArrayList<Integer> numbers = chooseNumbers();
         System.out.println("=================================");
 
-        int Sum = calculate(calculation, numbers);
+        int Sum = calculate(operation, numbers);
 
         System.out.println("Sum: " + Sum);
     }
@@ -33,24 +34,31 @@ public class Calculator {
 
     }
 
-    private static int[] chooseNumbers() {
-        System.out.print("How many numbers? ");
+    private static ArrayList<Integer> chooseNumbers() {
+        ArrayList<Integer> numbers = new ArrayList<Integer>();
         Scanner scanner = new Scanner(System.in);
-        int length = scanner.nextInt();
 
-        int[] numbers = new int[length];
-        for(int i = 0; i<numbers.length; i++) {
-            System.out.print("Choose number " + (i+1) + ": ");
-            int numInput = scanner.nextInt();
-            numbers[i] = numInput;
+        System.out.print("Enter a number: ");
+        String firstNum = scanner.nextLine();
+        numbers.add(Integer.parseInt(firstNum));
+
+        while(true) {
+            System.out.print("Enter another number or enter 'done' when finished: ");
+            String input = scanner.nextLine();
+
+            if (input.equals("done")) {
+                break;
+            } else {
+                numbers.add(Integer.parseInt(input));
+            }
         }
         return numbers;
     }
 
-    private static int calculate(Calculation calculation, int[] numbers) {
-        int total = numbers[0];
-        for(int i = 1; i<numbers.length; i++) {
-            total = calculation.calculate(total, numbers[i]);
+    private static int calculate(Calculation calculation, ArrayList<Integer> numbers) {
+        int total = numbers.get(0);
+        for(int i = 1; i<numbers.size(); i++) {
+            total = calculation.calculate(total, numbers.get(i));
         }
         return total;
     }
